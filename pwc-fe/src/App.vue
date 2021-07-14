@@ -1,12 +1,15 @@
 <template>
   <div id="app">
     <button @click="createTix">create tix</button>
+    <HelloWorld/>
   </div>
 </template>
 
 <script>
+import HelloWorld from './components/HelloWorld'
 export default {
   name: "App",
+  components: { HelloWorld },
   methods: {
     async createTix() {
       try {
