@@ -19,11 +19,11 @@ export default {
   methods: {
     async neigh() {
       try {
-        const {data} = await this.$api.neigh()
+        const {data} = await this.$api.ping.neigh()
         console.log('data is ', data)
         this.neighborhoods = data
       } catch(e) {
-        console.error('error while fetching neighborhoods')
+        console.error('error while fetching neighborhoods', e)
       }
     },
     async ping() {
