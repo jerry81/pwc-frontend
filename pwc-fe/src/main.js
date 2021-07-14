@@ -5,7 +5,7 @@ import api from './api'
 
 Vue.config.productionTip = false
 
-axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.baseURL = 'http://localhost:3005'
 Object.defineProperty(Vue.prototype, '$api', { value: api })
 
 new Vue({
