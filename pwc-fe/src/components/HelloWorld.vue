@@ -1,6 +1,8 @@
 <template>
   <div class="hello">
     <button @click="ping">ping</button>
+    <button @click="neigh">neighborhoods</button>
+    <div><p v-for="(v,i) in neighborhoods" :key="i">{{v}}</p></div>
   </div>
 </template>
 
@@ -9,7 +11,21 @@ export default {
   name: 'HelloWorld',
   props: {
   },
+  data () {
+    return {
+      neighborhoods: []
+    }
+  },
   methods: {
+    async neigh() {
+      try {
+        const {data} = await this.$api.neigh()
+        console.log('data is ', data)
+        this.neighborhoods = data
+      } catch(e) {
+        console.error('error while fetching neighborhoods')
+      }
+    },
     async ping() {
       try {
         const res = await this.$api.ping.ping()
