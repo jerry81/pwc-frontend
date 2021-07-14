@@ -3,6 +3,6 @@ import { getConfig } from "./headers";
 
 export default {
   async create(payload) {
-    return await post("/",payload,getConfig());
+    return await post("/ticket",payload,getConfig());
   },
 };
