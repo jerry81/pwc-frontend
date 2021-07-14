@@ -1,14 +1,33 @@
 <template>
   <div id="app">
-    <button>test</button>
+    <button @click="createTix">create tix</button>
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-}
+  name: "App",
+  methods: {
+    async createTix() {
+      try {
+        const ticketTest = {
+          status: "D",
+          assignee: "Jerry",
+          subject: "Mushrooms",
+          dueDate: new Date().toISOString(),
+          type: "Wishlist",
+          territory: "PwC Mekong",
+          dm_version: "1.1.1",
+          description: "description"
+        };
+        const { data } = await this.$api.ticket.create(ticketTest);
+        console.log("data is ", data);
+      } catch (e) {
+        console.error("error while posting ticket", e);
+      }
+    }
+  }
+};
 </script>
 
 <style>
