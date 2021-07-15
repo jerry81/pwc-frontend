@@ -5,9 +5,8 @@ export default {
   async create(payload) {
     return await post("/ticket",payload,getConfig());
   },
-  async list(f) {
-    const {filters, sort} = f
-    return await get("/tickets", { params: {...filters, ...sort} }, getConfig());
+  async list() {
+    return await get("/tickets", getConfig());
   },
   async updateStatus(id, status) {
     return await patch(`/ticket/${id}`, {status}, getConfig());
