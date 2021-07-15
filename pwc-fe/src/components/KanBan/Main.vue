@@ -19,11 +19,11 @@
         </article>
       </header>
       <main class="kanban-main">
-        <ticket-container/>
+        <ticket-container @refreshed="handleRefresh"/>
       </main>
     </section>
     <v-dialog v-model="showCreate" max-width="600px">
-        <ticket-details @close="showCreate=false" :creating="true"/>
+        <ticket-details @close="showCreate=false" :creating="true" :ticketCount="curCount"/>
     </v-dialog>
   </section>
 </template>
@@ -40,10 +40,16 @@ export default {
   },
   data() {
     return {
-        showCreate: false
+        showCreate: false,
+        curCount: 0
     };
   },
-  methods: {}
+  methods: {
+      handleRefresh(count) {
+          console.log('count is ', count)
+          this.curCount = count
+      }
+  }
 };
 </script>
 

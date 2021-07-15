@@ -70,7 +70,7 @@ export default {
       return this.ticket?.territory || "territory";
     },
     desc() {
-      return this.ticket?.description || "description";
+      return this.ticket?.subject || "subject";
     },
     assignee() {
       return this.ticket?.asignee || "Jerry";
@@ -82,7 +82,7 @@ export default {
       return this.ticket?.assignee[0]?.toUpperCase() || "U";
     },
     ticketNumber() {
-      return `WL-${this.ticket?.number || "unkown"}`;
+      return `WL-${this.ticket?.number || "unknown"}`;
     },
     roundStyle() {
       /* TODO: DRY */

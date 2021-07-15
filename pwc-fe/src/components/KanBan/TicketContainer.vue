@@ -60,6 +60,7 @@ export default {
       console.log()
       console.log("data is ", data);
       this.tickets = data;
+      this.$emit('refreshed', this.tickets.length)
     } catch (e) {
       console.error("error while posting ticket", e);
     }

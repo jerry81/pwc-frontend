@@ -9,20 +9,91 @@
     <main class="details-main">
       <h4>Basic Information</h4>
       <article>
-          <div class="details-label">
-        Subject:
+        <div class="details-label">
+          Subject:
         </div>
-        <Input class="details-input" />
+        <Input v-model="subject" class="details-input" />
       </article>
       <article>
-          <div class='details-label'>
-        Due Date:
+        <div class="details-label">
+          Due Date:
         </div>
-        <Input class="details-input" />
+        <v-menu
+          ref="menu"
+          v-model="menu"
+          :close-on-content-click="false"
+          :return-value.sync="dueDate"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="dueDate"
+              label="Select due date"
+              prepend-icon="mdi-calendar"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker v-model="dueDate" no-title scrollable>
+            <v-spacer></v-spacer>
+            <v-btn text color="primary" @click="menu = false">
+              Cancel
+            </v-btn>
+            <v-btn text color="primary" @click="handleDate">
+              OK
+            </v-btn>
+          </v-date-picker>
+        </v-menu>
+      </article>
+      <article>
+        <div class="details-label">
+          Type:
+        </div>
+        <select v-model="type" class="details-select">
+          <option>Wishlist</option>
+          <option>Bug</option>
+        </select>
+      </article>
+      <article>
+        <div class="details-label">
+          Territory:
+        </div>
+        <select v-model="territory" class="details-select">
+          <option>PwC Mekong</option>
+          <option>PwC Shanghai</option>
+          <option>PwC Hong Kong</option>
+        </select>
+      </article>
+      <article>
+        <div class="details-label">
+          DM Version:
+        </div>
+        <Input v-model="dm_version" class="details-input" />
+      </article>
+      <article>
+        <div class="details-label">
+          Assignee:
+        </div>
+        <Input v-model="assignee" class="details-input" />
+      </article>
+      <article>
+        <div class="details-label">
+          Description:
+        </div>
+        <Input v-model="description" class="details-input" />
       </article>
     </main>
     <footer class="details-foot">
-      <button class="details-save" :style="`background: ${theme}`">Save</button>
+      <button
+        class="details-save"
+        :style="`background: ${theme}`"
+        @click="handleSave"
+      >
+        Save
+      </button>
     </footer>
   </article>
 </template>
@@ -30,14 +101,40 @@
 <script>
 export default {
   name: "Details",
-  props: ["ticket", "creating"],
+  props: ["ticket", "creating", "ticketCount"],
   data() {
-    return {};
+    return {
+      description: "",
+      dueDate: "",
+      assignee: '',
+      type: "",
+      territory: "",
+      dm_version: "",
+      subject: "",
+      menu: false
+    };
   },
   methods: {
-      close() {
-          this.$emit('close')
-      }
+    close() {
+      this.$emit("close");
+    },
+    handleDate() {
+      this.menu=false
+      console.log('date is ', this.dueDate)
+    },
+    handleSave() {
+      console.log("fields are ", {
+        description: this.description,
+        dueDate: this.dueDate,
+        assignee: this.assignee,
+        type: this.type,
+        territory: this.territory,
+        dm_version: this.dm_version,
+        subject: this.subject,
+        updatedAt: Date.now(),
+        number: this.ticketCount + 1
+      });
+    }
   },
   computed: {
     title() {
@@ -73,32 +170,39 @@ export default {
   width: 100%;
   display: flex;
   justify-content: flex-end;
-    padding: 15px;
+  padding: 15px;
 }
 .details-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
 }
 .details-save {
   color: white;
   padding: 4px 10px;
 }
 .details-main {
-    display: flex;
+  display: flex;
   padding: 15px;
   flex-direction: column;
 }
 .details-main article {
-    margin: 5px;
-    display: flex;
+  margin: 5px;
+  display: flex;
 }
 .details-label {
-    width: 100px;
+  width: 100px;
 }
 .details-input {
-    border: 1px grey solid;
-    width: calc(100% - 100px - 35px)
+  border: 1px #ddd solid;
+  width: calc(100% - 100px - 35px);
+  padding: 5px;
+}
+.details-select {
+  border: 1px #ddd solid;
+  padding: 5px;
+  appearance: auto !important;
+  -webkit-appearance: auto !important;
 }
 </style>
