@@ -22,9 +22,49 @@
       </article>
     </header>
     <main class="list-main">
+      <header class="list-table-header">
+        <article style="width: 175px;">
+          Requestor
+          <v-icon
+            small
+            color="grey "
+          >
+            mdi-filter
+          </v-icon>
+        </article>
+                <article style="width: 275px;">
+          Description
+        </article>
+                <article style="width: 100px;">
+          Tag
+          <v-icon
+            small
+            color="grey "
+          >
+            mdi-filter
+          </v-icon>
+        </article>
+                <article style="width: 125px;">
+          Due Date
+          <v-icon
+            small
+            color="grey "
+          >
+            mdi-filter
+          </v-icon>
+        </article>
+                <article style="width: 175px;">
+          Last Modified
+          <v-icon
+            small
+            color="grey "
+          >
+            mdi-filter
+          </v-icon>
+        </article>
+      </header>
     </main>
-    <v-dialog v-model="showCreate" max-width="600px">
-    </v-dialog>
+    <v-dialog v-model="showDetails" max-width="600px"> </v-dialog>
   </section>
 </template>
 
@@ -32,11 +72,10 @@
 export default {
   name: "KanBan",
   props: {},
-  components: {
-  },
+  components: {},
   data() {
     return {
-      showCreate: false,
+      showDetails: false,
       curCount: 0
     };
   },
@@ -63,8 +102,10 @@ export default {
 <style scoped>
 .list-root {
   height: calc(100% - 70px);
-  background: #ccc;
-  width: 100%;
+  background: white;
+  width: calc(100% - 30px);
+  margin: 15px;
+
 }
 .list-work {
   margin: 10px 25px;
@@ -93,5 +134,17 @@ export default {
 .list-main {
   height: calc(100% - 70px);
   width: 100%;
+}
+.list-table-header {
+  width: calc(100% - 30px);
+  margin: 0 15px;
+  display: flex;
+  background: black;
+  color: white;
+  align-items: center;
+  height: 60px;
+}
+.list-table-header article {
+  padding-left: 15px;
 }
 </style>
