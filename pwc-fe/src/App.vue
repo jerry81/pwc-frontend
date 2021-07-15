@@ -2,16 +2,19 @@
   <v-app>
     <section class="root">
       <Header />
+      <Kanban />
     </section>
   </v-app>
 </template>
 
 <script>
 import Header from "./components/Header";
+import Kanban from './components/KanBan/Main'
 export default {
   name: "App",
   components: {
-    Header
+    Header,
+    Kanban
   },
 
   data: () => ({

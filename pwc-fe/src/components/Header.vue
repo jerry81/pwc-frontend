@@ -18,32 +18,7 @@
 
 <script>
 export default {
-  name: "HelloWorld",
-  props: {},
-  data() {
-    return {
-      neighborhoods: []
-    };
-  },
-  methods: {
-    async neigh() {
-      try {
-        const { data } = await this.$api.ping.neigh();
-        console.log("data is ", data);
-        this.neighborhoods = data;
-      } catch (e) {
-        console.error("error while fetching neighborhoods", e);
-      }
-    },
-    async ping() {
-      try {
-        const res = await this.$api.ping.ping();
-        console.log("res is ", res);
-      } catch (e) {
-        console.error("error while pinging", e);
-      }
-    }
-  }
+  name: "Header"
 };
 </script>
 
@@ -63,8 +38,8 @@ export default {
 .head-right {
   height: 100%;
   display: flex;
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
 }
 .head-home {
   color: orangered;
@@ -76,7 +51,7 @@ export default {
 }
 .head-arrow {
   background: orangered;
-  margin-left: 15px;
+  margin-left: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
