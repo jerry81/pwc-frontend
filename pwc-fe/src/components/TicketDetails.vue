@@ -12,7 +12,7 @@
         <div class="details-label">
           Subject:
         </div>
-        <Input v-model="subject" class="details-input" />
+        <input v-model="subject" class="details-input" />
       </article>
       <article>
         <div class="details-label">
@@ -71,19 +71,19 @@
         <div class="details-label">
           DM Version:
         </div>
-        <Input v-model="dm_version" class="details-input" />
+        <input v-model="dm_version" class="details-input" />
       </article>
       <article>
         <div class="details-label">
           Assignee:
         </div>
-        <Input v-model="assignee" class="details-input" />
+        <input v-model="assignee" class="details-input" />
       </article>
       <article>
         <div class="details-label">
           Description:
         </div>
-        <Input v-model="description" class="details-input" />
+        <input v-model="description" class="details-input" />
       </article>
     </main>
     <footer class="details-foot">
@@ -106,7 +106,7 @@ export default {
     return {
       description: "",
       dueDate: "",
-      assignee: '',
+      assignee: "",
       type: "",
       territory: "",
       dm_version: "",
@@ -119,11 +119,13 @@ export default {
       this.$emit("close");
     },
     handleDate() {
-      this.menu=false
-      console.log('date is ', this.dueDate)
+      this.menu = false;
+      this.$refs.menu.save(this.dueDate)
+      console.log("date is ", this.dueDate);
     },
     handleSave() {
-      console.log("fields are ", {
+      console.log("tis.subject", this.subject);
+      const newObj = {
         description: this.description,
         dueDate: this.dueDate,
         assignee: this.assignee,
@@ -131,9 +133,10 @@ export default {
         territory: this.territory,
         dm_version: this.dm_version,
         subject: this.subject,
-        updatedAt: Date.now(),
+        updatedAt: new Date().toISOString(),
         number: this.ticketCount + 1
-      });
+      };
+      console.log("current state is ", newObj);
     }
   },
   computed: {
@@ -198,6 +201,8 @@ export default {
   border: 1px #ddd solid;
   width: calc(100% - 100px - 35px);
   padding: 5px;
+  appearance: auto !important;
+  -webkit-appearance: auto !important;
 }
 .details-select {
   border: 1px #ddd solid;
