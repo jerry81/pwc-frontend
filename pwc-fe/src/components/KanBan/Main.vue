@@ -4,7 +4,7 @@
       <header class="kanban-header">
         <h3>All Requests</h3>
         <article class="kanban-header-right">
-          <article class="kanban-header-lv">
+          <article class="kanban-header-lv" @click="$emit('toggle')">
             <v-icon medium color="grey " style="margin-right: 5px;">
               mdi-menu
             </v-icon>

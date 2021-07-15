@@ -1,8 +1,9 @@
 <template>
   <v-app>
     <section class="root">
-      <Header />
-      <Kanban />
+      <Header/>
+      <Kanban v-if="showKan" @toggle="showKan=!showKan"/>
+      <ListView v-if="!showKan" @toggle="showKan=!showKan"/>
     </section>
   </v-app>
 </template>
@@ -18,7 +19,7 @@ export default {
   },
 
   data: () => ({
-    //
+    showKan: true
   })
 };
 </script>

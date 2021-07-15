@@ -39,8 +39,11 @@
       </main>
     </article>
     <article class="tile-bottom" @click="showMain = !showMain">
-      <v-icon medium color="gray">
+      <v-icon medium color="gray" v-if="!showMain">
         mdi-chevron-down
+      </v-icon>
+       <v-icon medium color="gray" v-if="showMain">
+        mdi-chevron-up
       </v-icon>
     </article>
   </article>
