@@ -35,12 +35,12 @@ export default {
         }
         case "PENDING": {
           return {
-            borderBottom: '3px teal solid'
+            borderBottom: '3px aquamarine solid'
           }
         }
         case "COMPLETED": {
           return {
-            borderBottom: '3px orangered solid'
+            borderBottom: '3px orange solid'
           }
         }
         default:

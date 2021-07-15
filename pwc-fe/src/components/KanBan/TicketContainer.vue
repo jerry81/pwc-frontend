@@ -1,6 +1,6 @@
 <template>
   <section class="ticket-container-root">
-    <ticket-sub-container status="SUBMITTED" :items="[]"/>
+    <ticket-sub-container v-for="(v,i) in subcontainers" :key="i" :status="v.status" :items="v.items"/>
   </section>
 </template>
 
@@ -10,7 +10,26 @@ export default {
   name: "TicketContainer",
   props: {},
   data() {
-    return {};
+    return {
+      subcontainers: [
+        {
+          status: 'SUBMITTED',
+          items: []
+        },
+        {
+          status: 'ASSIGNED',
+          items: []
+        },
+        {
+          status: 'PENDING',
+          items: []
+        },
+        {
+          status: 'COMPLETED',
+          items: []
+        }
+      ]
+    };
   },
   methods: {},
   components: {TicketSubContainer}
