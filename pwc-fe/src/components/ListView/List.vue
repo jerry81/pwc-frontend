@@ -52,23 +52,32 @@
         </article>
       </header>
       <section class="table-body">
-        <list-body />
+        <list-body ref="lcontainer" @refreshed="handleRefresh"/>
       </section>
     </main>
-    <v-dialog v-model="showDetails" max-width="600px"> </v-dialog>
+    <v-dialog v-model="showCreate" max-width="600px">
+      <ticket-details
+        @close="showCreate = false"
+        :creating="true"
+        :ticketCount="curCount"
+        @save="handleSave"
+      />
+    </v-dialog>
   </section>
 </template>
 <script>
-import ListBody from './ListBody'
+import ListBody from "./ListBody";
+import TicketDetails from '../TicketDetails'
 
 export default {
   name: "List",
   props: {},
-  components: {ListBody},
+  components: { ListBody, TicketDetails },
   data() {
     return {
       showDetails: false,
-      curCount: 0
+      curCount: 0,
+      showCreate: false,
     };
   },
   methods: {
@@ -80,7 +89,7 @@ export default {
       this.showCreate = false;
       try {
         const { data } = await this.$api.ticket.create(obj);
-        this.$refs.tcontainer.refresh();
+        this.$refs.lcontainer.refresh();
         console.log("data is ", data);
       } catch (e) {
         console.error("error while posting ticket", e);
@@ -142,6 +151,5 @@ export default {
   height: calc(100% - 100px);
   margin: 0 15px;
   width: calc(100% - 30px);
- 
 }
 </style>

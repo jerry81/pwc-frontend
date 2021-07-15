@@ -52,7 +52,6 @@ export default {
     async refresh() {
       try {
         const { data } = await this.$api.ticket.list();
-        console.log("data is ", data);
         this.tickets = data;
         this.$emit("refreshed", this.tickets.length);
       } catch (e) {
