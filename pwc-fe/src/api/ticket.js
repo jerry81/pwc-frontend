@@ -6,7 +6,7 @@ export default {
     return await post("/ticket",payload,getConfig());
   },
   async list(f) {
-    const {filter, sort} = f
-    return await get("/tickets", { params: {...filter, ...sort} }, getConfig());
+    const {filters, sort} = f
+    return await get("/tickets", { params: {...filters, ...sort} }, getConfig());
   },
 };
