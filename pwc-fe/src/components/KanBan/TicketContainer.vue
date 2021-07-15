@@ -1,12 +1,20 @@
 <template>
   <section class="ticket-container-root">
-      <ticket-sub-container
-        v-for="(v, i) in subcontainers"
-        :key="i"
-        :status="v.status"
-        :items="v.items"
-        @selected="handleSelected"
-      />
+    <ticket-sub-container
+      v-for="(v, i) in subcontainers"
+      :key="i"
+      :status="v.status"
+      :items="v.items"
+      @selected="handleSelected"
+      @updated="refresh"
+    />
+    <v-progress-circular
+      class="progress"
+      v-if="showProgress"
+      :size="50"
+      color="primary"
+      indeterminate
+    ></v-progress-circular>
   </section>
 </template>
 
@@ -18,7 +26,8 @@ export default {
   props: {},
   data() {
     return {
-      tickets: []
+      tickets: [],
+      showProgress: false
     };
   },
   computed: {
@@ -58,7 +67,9 @@ export default {
   methods: {
     async refresh() {
       try {
+        this.showProgress = true;
         const { data } = await this.$api.ticket.list();
+        this.showProgress = false;
         console.log("data is ", data);
         this.tickets = data;
         this.$emit("refreshed", this.tickets.length);
@@ -106,5 +117,11 @@ export default {
   height: calc(100% - 60px);
   width: 100%;
   background: #ddd;
+}
+
+.progress {
+  position: absolute;
+  left: 50%;
+  top: 50%;
 }
 </style>

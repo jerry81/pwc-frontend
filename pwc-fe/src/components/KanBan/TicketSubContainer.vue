@@ -15,6 +15,13 @@
         />
       </main>
     </drop>
+    <v-progress-circular
+      class="progress"
+      v-if="showProgress"
+      :size="50"
+      color="primary"
+      indeterminate
+    ></v-progress-circular>
   </article>
 </template>
 
@@ -24,7 +31,9 @@ export default {
   name: "TicketSubContainer",
   props: ["status", "items"],
   data() {
-    return {};
+    return {
+      showProgress: false
+    };
   },
   components: { Tile },
   methods: {
@@ -33,8 +42,10 @@ export default {
     },
     async handleDrop(e) {
       try {
+        this.showProgress = true;
         await this.$api.ticket.updateStatus(e._id, this.status);
-        this.$emit('updated')
+        this.showProgress = false;
+        this.$emit("updated");
       } catch (e) {
         console.error("error while updating status", e);
       }
@@ -114,5 +125,10 @@ export default {
   background: #ddd;
   display: flex;
   flex-direction: column;
+}
+.progress {
+  position: absolute;
+  left: 50%;
+  top: 50%;
 }
 </style>
