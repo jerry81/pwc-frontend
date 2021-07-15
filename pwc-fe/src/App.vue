@@ -11,8 +11,19 @@
     </select>
     <button @click="fetchTix">fetch tix</button>
     <div style="margin:15px">
-      <p v-for="(v, i) in tickets" :key="i">{{ v }}</p>
+      <p v-for="(v, i) in tickets" :key="i">{{ v }}
+        newStatus 
+        <select v-model="newStatus">
+          <option>DRAFT</option>
+          <option>SUBMITTED</option>
+          <option>ASSIGNED</option>
+          <option>PENDING</option>
+          <option>COMPLETED</option>
+        </select>
+        <button @click="updateStatus(v)">update Status</button>
+      </p>
     </div>
+
     <HelloWorld />
   </div>
 </template>
@@ -32,7 +43,8 @@ export default {
       },
       sort: {
         sortBy: ""
-      }
+      },
+      newStatus: 'DRAFT'
     };
   },
   methods: {
@@ -68,6 +80,15 @@ export default {
       } catch (e) {
         console.error("error while posting ticket", e);
       }
+    },
+    async updateStatus(tix) {
+      console.log('tix is ', tix)
+      try {
+        await this.$api.ticket.updateStatus(tix._id, this.newStatus)
+      } catch(e) {
+        console.error('error while updating status', e)
+      }
+      
     }
   }
 };
