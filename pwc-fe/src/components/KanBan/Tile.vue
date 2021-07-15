@@ -35,6 +35,7 @@
           </v-icon>
           <span class="tile-text">{{due}}</span>
         </article>
+        Updated at {{ua}}
       </main>
     </article>
     <article class="tile-bottom" @click="showMain = !showMain">
@@ -56,6 +57,9 @@ export default {
   },
   methods: {},
   computed: {
+      ua() {
+        return this.ticket?.updatedAt || "updated at time"
+      },
     due() {
       return this.ticket?.dueDate || "due date";
     },
