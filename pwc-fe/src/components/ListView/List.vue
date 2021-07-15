@@ -213,9 +213,7 @@ export default {
       this.showFilters = false;
     },
     clearFilters() {
-      console.log("filters is now ", this.filters);
       this.filters = { ...DEFAULT_FILTERS };
-      this.currentFilter = { ...this.filters };
     }
   }
 };
