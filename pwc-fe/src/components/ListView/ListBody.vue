@@ -66,13 +66,13 @@
 <script>
 export default {
   name: "listbody",
-  props: ['filters'],
+  props: ["filters", "sort"],
   components: {},
   data() {
     return {
       showDetails: false,
       curCount: 0,
-      tickets: [],
+      tickets: []
     };
   },
   computed: {
@@ -89,16 +89,27 @@ export default {
       return this.filteredTickets.filter(x => x.status === "COMPLETED");
     },
     filteredTickets() {
-      return this.tickets.filter(this.applyFilters)
-    },
+      return this.tickets.filter(this.applyFilters).sort((a, b) => {
+        const dateA = new Date(a.updatedAt).getTime();
+        const dateB = new Date(b.updatedAt).getTime();
+        
+        if (this.sort == "desc") {
+          return dateA > dateB ? -1 : 1;
+        } else {
+          return dateA < dateB ? -1 : 1;
+        }
+      });
+    }
   },
   methods: {
     applyFilters(ticket) {
-      const assigneePass = this.filters?.assignee === '*' || this.filters?.assignee?.length === 0
-      const assigneeFail = !ticket.assignee.includes(this.filters.assignee)
-      const tagPass = this.filters?.tag === '*' || this.filters?.tag?.length === 0
-      const tagFail = ticket.type !== this.filters.tag
-      return (!assigneeFail || assigneePass) && (!tagFail || tagPass)
+      const assigneePass =
+        this.filters?.assignee === "*" || this.filters?.assignee?.length === 0;
+      const assigneeFail = !ticket.assignee.includes(this.filters.assignee);
+      const tagPass =
+        this.filters?.tag === "*" || this.filters?.tag?.length === 0;
+      const tagFail = ticket.type !== this.filters.tag;
+      return (!assigneeFail || assigneePass) && (!tagFail || tagPass);
     },
     async refresh() {
       try {
@@ -110,7 +121,7 @@ export default {
       }
     },
     handleClick(v) {
-      this.$emit('selected', v)
+      this.$emit("selected", v);
     }
   },
   async mounted() {

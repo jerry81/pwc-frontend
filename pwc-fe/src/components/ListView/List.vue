@@ -40,14 +40,17 @@
         </article>
         <article style="width: 200px;">
           Due Date
-          <v-icon small color="grey" @click="handleFilters('due')">
+          <!--           <v-icon small color="grey" @click="handleFilters('due')">
             mdi-filter
-          </v-icon>
+          </v-icon> -->
         </article>
         <article style="width: 200px;">
           Last Modified
-          <v-icon small color="grey" @click="handleFilters('lm')">
-            mdi-filter
+            <v-icon small color="grey" @click="curSort='asc'" v-if="curSort==='desc'">
+            mdi-chevron-down
+          </v-icon>
+          <v-icon small color="grey" @click="curSort='desc'" v-if="curSort==='asc'">
+            mdi-chevron-up
           </v-icon>
         </article>
       </header>
@@ -57,6 +60,7 @@
           @refreshed="handleRefresh"
           @selected="handleSelected"
           :filters="currentFilter"
+          :sort="curSort"
         />
       </section>
     </main>
@@ -80,9 +84,12 @@
         </article>
         <article>
           <div>Tag</div>
-          <input v-model="filters.tag" :disabled="changingFilter != 'tag'" />
+          <select v-model="filters.tag" :disabled="changingFilter != 'tag'">
+            <option>Wishlist</option>
+            <option>Bug</option>
+          </select>
         </article>
-        <article>
+        <!--  TODO       <article>
           <div>Due Date Start</div>
           <input
             v-model="filters.dueDateStart"
@@ -109,7 +116,7 @@
             v-model="filters.lastModifiedEnd"
             :disabled="changingFilter != 'lm'"
           />
-        </article>
+        </article> -->
         <footer>
           <button @click="applyFilters">Apply</button>
           <button @click="clearFilters">Clear</button>
@@ -151,7 +158,8 @@ export default {
       filters: { ...DEFAULT_FILTERS },
       currentFilter: { ...DEFAULT_FILTERS },
       showFilters: false,
-      changingFilter: ""
+      changingFilter: "",
+      curSort: 'desc'
     };
   },
   methods: {
@@ -178,7 +186,7 @@ export default {
       this.showFilters = true;
     },
     applyFilters() {
-      this.currentFilter = {...this.filters};
+      this.currentFilter = { ...this.filters };
       this.showFilters = false;
     },
     cancelFilters() {
@@ -275,6 +283,19 @@ export default {
   border: 1px solid #ddd;
 }
 .list-filters article input:disabled {
+  appearance: auto;
+  -webkit-appearance: auto;
+  padding: 3px 7px;
+  border: 1px solid #ddd;
+  background: #aaa;
+}
+.list-filters article select {
+  appearance: auto;
+  -webkit-appearance: auto;
+  padding: 3px 7px;
+  border: 1px solid #ddd;
+}
+.list-filters article select:disabled {
   appearance: auto;
   -webkit-appearance: auto;
   padding: 3px 7px;
