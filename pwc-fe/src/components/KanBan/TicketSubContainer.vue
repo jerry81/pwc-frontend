@@ -5,13 +5,16 @@
         <span>{{headerText}}</span>
       </article>
     </header>
-    <main class="tc-cao"></main>
+    <main class="tc-cao">
+      <Tile v-for="(v,i) in items" :key="i" :ticket='v'/>
+    </main>
   </article>
 </template>
 
 <script>
+import Tile from './Tile'
 export default {
-  name: "TicketContainer",
+  name: "TicketSubContainer",
   props: [
     'status',
     'items'
@@ -19,6 +22,7 @@ export default {
   data() {
     return {};
   },
+  components: {Tile},
   methods: {},
   computed: {
     borderStyle() {
@@ -92,5 +96,7 @@ export default {
   height: calc(100% - 60px);
   width: 100%;
   background: #ddd;
+  display: flex;
+  flex-direction: column;
 }
 </style>
