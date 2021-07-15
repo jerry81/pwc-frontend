@@ -2,19 +2,19 @@
   <section class="kanban-root">
     <section class="kanban-work">
       <header class="kanban-header">
-        <h4>All Requests</h4>
+        <h3>All Requests</h3>
         <article class="kanban-header-right">
           <article class="kanban-header-lv">
             <v-icon medium color="grey " style="margin-right: 5px;">
-              mdi-arrow-up-bold
+              mdi-menu
             </v-icon>
-            <span>List View</span>
+            <span class="kanban-tool">List View</span>
           </article>
           <article class="kanban-header-nr">
-            <v-icon medium color="grey " style="margin-right: 5px;">
-              mdi-arrow-up-bold
+            <v-icon small color="grey " style="margin-right: 5px; padding: 1px; border-radius: 20px; border: 3px solid grey;">
+              mdi-plus
             </v-icon>
-            <span>New Request</span>
+            <span class="kanban-tool">New Request</span>
           </article>
         </article>
       </header>
@@ -45,5 +45,23 @@ export default {
   height: calc(100% - 20px);
   width: calc(100% - 50px);
   background: white;
+}
+.kanban-header {
+    height: 70px;
+    display:flex;
+    width: calc(100% - 40px);
+    flex-direction:row;
+    align-items: center;
+    margin: 0 20px;
+    justify-content: space-between;
+}
+.kanban-header-right {
+    display:flex;
+}
+.kanban-tool {
+    font-size: 12px;
+}
+.kanban-header-lv {
+    margin-right: 15px;
 }
 </style>
