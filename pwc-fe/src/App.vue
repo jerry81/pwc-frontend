@@ -1,15 +1,24 @@
 <template>
   <div id="app">
     <button @click="createTix">create tix</button>
-    <HelloWorld/>
+    <button @click="fetchTix">fetch tix</button>
+    <div style="margin:15px">
+      <p v-for="(v, i) in tickets" :key="i">{{ v }}</p>
+    </div>
+    <HelloWorld />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import HelloWorld from "./components/HelloWorld";
 export default {
   name: "App",
   components: { HelloWorld },
+  data() {
+    return {
+      tickets: []
+    };
+  },
   methods: {
     async createTix() {
       try {
@@ -25,6 +34,15 @@ export default {
         };
         const { data } = await this.$api.ticket.create(ticketTest);
         console.log("data is ", data);
+      } catch (e) {
+        console.error("error while posting ticket", e);
+      }
+    },
+    async fetchTix() {
+      try {
+        const { data } = await this.$api.ticket.list();
+        console.log("data is ", data);
+        this.tickets = data
       } catch (e) {
         console.error("error while posting ticket", e);
       }
