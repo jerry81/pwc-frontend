@@ -25,54 +25,46 @@
       <header class="list-table-header">
         <article style="width: 175px;">
           Requestor
-          <v-icon
-            small
-            color="grey "
-          >
+          <v-icon small color="grey ">
             mdi-filter
           </v-icon>
         </article>
-                <article style="width: 275px;">
+        <article style="width: 275px;">
           Description
         </article>
-                <article style="width: 100px;">
+        <article style="width: 100px;">
           Tag
-          <v-icon
-            small
-            color="grey "
-          >
+          <v-icon small color="grey ">
             mdi-filter
           </v-icon>
         </article>
-                <article style="width: 125px;">
+        <article style="width: 200px;">
           Due Date
-          <v-icon
-            small
-            color="grey "
-          >
+          <v-icon small color="grey ">
             mdi-filter
           </v-icon>
         </article>
-                <article style="width: 175px;">
+        <article style="width: 200px;">
           Last Modified
-          <v-icon
-            small
-            color="grey "
-          >
+          <v-icon small color="grey ">
             mdi-filter
           </v-icon>
         </article>
       </header>
+      <section class="table-body">
+        <list-body />
+      </section>
     </main>
     <v-dialog v-model="showDetails" max-width="600px"> </v-dialog>
   </section>
 </template>
-
 <script>
+import ListBody from './ListBody'
+
 export default {
-  name: "KanBan",
+  name: "List",
   props: {},
-  components: {},
+  components: {ListBody},
   data() {
     return {
       showDetails: false,
@@ -101,11 +93,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .list-root {
-  height: calc(100% - 70px);
+  height: calc(100% - 80px);
   background: white;
   width: calc(100% - 30px);
   margin: 15px;
-
 }
 .list-work {
   margin: 10px 25px;
@@ -146,5 +137,11 @@ export default {
 }
 .list-table-header article {
   padding-left: 15px;
+}
+.table-body {
+  height: calc(100% - 100px);
+  margin: 0 15px;
+  width: calc(100% - 30px);
+ 
 }
 </style>
