@@ -10,7 +10,32 @@
         </article>
         <div class="tile-number" :style="roundStyle">{{ ticketNumber }}</div>
       </header>
-      <main class="tile-main" v-if="showMain">stuff</main>
+      <main class="tile-main" v-if="showMain">
+        <article>
+          <v-icon small color="gray">
+            mdi-clipboard-text-outline
+          </v-icon>
+          <span class="tile-text">{{ desc }}</span>
+        </article>
+        <article>
+          <v-icon small color="gray">
+            mdi-map-marker-radius
+          </v-icon>
+          <span class="tile-text">{{ territory }}</span>
+        </article>
+        <article>
+          <v-icon small color="gray">
+            mdi-bookmark-outline
+          </v-icon>
+          <span class="tile-text">{{type}}</span>
+        </article>
+        <article>
+          <v-icon small color="gray">
+            mdi-clock-time-four-outline
+          </v-icon>
+          <span class="tile-text">{{due}}</span>
+        </article>
+      </main>
     </article>
     <article class="tile-bottom" @click="showMain = !showMain">
       <v-icon medium color="gray">
@@ -31,6 +56,18 @@ export default {
   },
   methods: {},
   computed: {
+    due() {
+      return this.ticket?.dueDate || "due date";
+    },
+    type() {
+      return this.ticket?.type || "type";
+    },
+    territory() {
+      return this.ticket?.territory || "territory";
+    },
+    desc() {
+      return this.ticket?.description || "description";
+    },
     assignee() {
       return this.ticket?.asignee || "Jerry";
     },
@@ -113,18 +150,24 @@ export default {
 }
 .tile-top {
 }
+.tile-main {
+  padding: 15px;
+}
 .tile-bottom {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .tile-number {
-    color:white;
-    border-radius: 25px;
-    color: white;
-    font-size: 10px;
-    padding: 1px 4px;
-    font-weight: bold;
+  color: white;
+  border-radius: 25px;
+  color: white;
+  font-size: 10px;
+  padding: 1px 4px;
+  font-weight: bold;
+}
+.tile-text {
+    margin-left: 5px;
 }
 .tile-header {
   height: 50px;
