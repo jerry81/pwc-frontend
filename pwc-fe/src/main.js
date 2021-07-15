@@ -6,8 +6,8 @@ import vuetify from './plugins/vuetify'
 
 Vue.config.productionTip = false;
 /* read .env for env */
-axios.defaults.baseURL = "http://localhost:3000"; // dev
-// axios.defaults.baseURL = 'http://47.100.10.198:3005'
+// axios.defaults.baseURL = "http://localhost:3000"; // dev
+axios.defaults.baseURL = 'http://47.100.10.198:3005'
 
 Object.defineProperty(Vue.prototype, "$api", { value: api });
 
