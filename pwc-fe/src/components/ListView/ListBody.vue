@@ -6,7 +6,7 @@
     <article
       class="lb-iter"
       v-for="(v, i) in submitted"
-      :key="i"
+      :key="`${i}${v._id}`"
       @click="handleClick(v)"
     >
       <span style="width: 175px;">{{ v.assignee }}</span>
@@ -21,7 +21,7 @@
     <article
       class="lb-iter"
       v-for="(v, i) in assigned"
-      :key="i"
+      :key="`${i}${v._id}`"
       @click="handleClick(v)"
     >
       <span style="width: 175px;">{{ v.assignee }}</span>
@@ -36,7 +36,7 @@
     <article
       class="lb-iter"
       v-for="(v, i) in pending"
-      :key="i"
+      :key="`${i}${v._id}`"
       @click="handleClick(v)"
     >
       <span style="width: 175px;">{{ v.assignee }}</span>
@@ -51,7 +51,7 @@
     <article
       class="lb-iter"
       v-for="(v, i) in completed"
-      :key="i"
+      :key="`${i}${v._id}`"
       @click="handleClick(v)"
     >
       <span style="width: 175px;">{{ v.assignee }}</span>
