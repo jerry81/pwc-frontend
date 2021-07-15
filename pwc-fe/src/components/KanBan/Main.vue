@@ -10,7 +10,7 @@
             </v-icon>
             <span class="kanban-tool">List View</span>
           </article>
-          <article class="kanban-header-nr">
+          <article class="kanban-header-nr" @click="showCreate=true">
             <v-icon small color="grey " style="margin-right: 5px; padding: 1px; border-radius: 20px; border: 3px solid grey;">
               mdi-plus
             </v-icon>
@@ -22,19 +22,26 @@
         <ticket-container/>
       </main>
     </section>
+    <v-dialog v-model="showCreate" max-width="600px">
+        <ticket-details @close="showCreate=false" :creating="true"/>
+    </v-dialog>
   </section>
 </template>
 
 <script>
 import TicketContainer from './TicketContainer'
+import TicketDetails from '../TicketDetails'
 export default {
   name: "KanBan",
   props: {},
   components: {
-    TicketContainer
+    TicketContainer,
+    TicketDetails,
   },
   data() {
-    return {};
+    return {
+        showCreate: false
+    };
   },
   methods: {}
 };
