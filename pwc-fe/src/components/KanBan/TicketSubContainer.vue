@@ -1,37 +1,76 @@
 <template>
-  <section class="ticket-container-root">
-    <article class="tc-col">
-      <header class="tc-head">
-        <article style="border-bottom: 3px orangered solid;" class="tc-border">
-          <span>Submitted (1)</span>
-        </article>
-      </header>
-      <main class="tc-cao">
-
-      </main>
-    </article>
-    <article class="tc-col"></article>
-  </section>
+  <article class="tc-col">
+    <header class="tc-head">
+      <article :style="borderStyle" class="tc-border">
+        <span>{{headerText}}</span>
+      </article>
+    </header>
+    <main class="tc-cao"></main>
+  </article>
 </template>
 
 <script>
 export default {
   name: "TicketContainer",
-  props: {},
+  props: [
+    'status',
+    'items'
+  ],
   data() {
     return {};
   },
-  methods: {}
+  methods: {},
+  computed: {
+    borderStyle() {
+      switch (this.status) {
+        case "SUBMITTED": {
+          return {
+            borderBottom: '3px red solid'
+          };
+        }
+        case "ASSIGNED": {
+          return {
+            borderBottom: '3px darkgreen solid'
+          }
+        }
+        case "PENDING": {
+          return {
+            borderBottom: '3px teal solid'
+          }
+        }
+        case "COMPLETED": {
+          return {
+            borderBottom: '3px orangered solid'
+          }
+        }
+        default:
+          return {};
+      }
+    },
+    headerText() {
+      switch (this.status) {
+        case "SUBMITTED": {
+          return `Submitted (${this.items.length})`;
+        }
+        case "ASSIGNED": {
+          return `Assigned (${this.items.length})`
+        }
+        case "PENDING": {
+          return `Pending for Close (${this.items.length})`
+        }
+        case "COMPLETED": {
+          return `Completed (${this.items.length})`
+        }
+        default:
+          return {};
+      }
+    }
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.ticket-container-root {
-  height: 100%;
-  width: 100%;
-  display: flex;
-}
 .tc-col {
   height: 100%;
   width: 25%;

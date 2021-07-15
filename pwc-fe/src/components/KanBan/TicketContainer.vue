@@ -1,27 +1,19 @@
 <template>
   <section class="ticket-container-root">
-    <article class="tc-col">
-      <header class="tc-head">
-        <article style="border-bottom: 3px orangered solid;" class="tc-border">
-          <span>Submitted (1)</span>
-        </article>
-      </header>
-      <main class="tc-cao">
-
-      </main>
-    </article>
-    <article class="tc-col"></article>
+    <ticket-sub-container status="SUBMITTED" :items="[]"/>
   </section>
 </template>
 
 <script>
+import TicketSubContainer from './TicketSubContainer'
 export default {
   name: "TicketContainer",
   props: {},
   data() {
     return {};
   },
-  methods: {}
+  methods: {},
+  components: {TicketSubContainer}
 };
 </script>
 
