@@ -3,6 +3,7 @@ import App from "./App.vue";
 import axios from "axios";
 import api from "./api";
 import vuetify from './plugins/vuetify'
+import vuedragdrop from 'vue-drag-drop'
 
 Vue.config.productionTip = false;
 /* read .env for env */
@@ -10,7 +11,7 @@ Vue.config.productionTip = false;
 axios.defaults.baseURL = 'http://47.100.10.198:3005'
 
 Object.defineProperty(Vue.prototype, "$api", { value: api });
-
+Vue.use(vuedragdrop)
 new Vue({
   vuetify,
   render: h => h(App)

@@ -88,7 +88,6 @@ export default {
       } catch(e) {
         console.error('error while updating status', e)
       }
-      
     }
   }
 };

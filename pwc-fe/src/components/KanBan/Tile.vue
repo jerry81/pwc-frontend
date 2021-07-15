@@ -1,52 +1,54 @@
 <template>
-  <article class="tile-root" :style="borderStyle" @click="handleClick">
-    <article class="tile-top">
-      <header class="tile-header">
-        <article>
-          <span class="tile-round" :style="roundStyle">
-            {{ firstL }}
-          </span>
-          {{ assignee }}
-        </article>
-        <div class="tile-number" :style="roundStyle">{{ ticketNumber }}</div>
-      </header>
-      <main class="tile-main" v-if="showMain">
-        <article>
-          <v-icon small color="gray">
-            mdi-clipboard-text-outline
-          </v-icon>
-          <span class="tile-text">{{ desc }}</span>
-        </article>
-        <article>
-          <v-icon small color="gray">
-            mdi-map-marker-radius
-          </v-icon>
-          <span class="tile-text">{{ territory }}</span>
-        </article>
-        <article>
-          <v-icon small color="gray">
-            mdi-bookmark-outline
-          </v-icon>
-          <span class="tile-text">{{type}}</span>
-        </article>
-        <article>
-          <v-icon small color="gray">
-            mdi-clock-time-four-outline
-          </v-icon>
-          <span class="tile-text">{{due}}</span>
-        </article>
-        Updated at {{ua}}
-      </main>
+  <drag :transfer-data="ticket">
+    <article class="tile-root" :style="borderStyle" @click="handleClick">
+      <article class="tile-top">
+        <header class="tile-header">
+          <article>
+            <span class="tile-round" :style="roundStyle">
+              {{ firstL }}
+            </span>
+            {{ assignee }}
+          </article>
+          <div class="tile-number" :style="roundStyle">{{ ticketNumber }}</div>
+        </header>
+        <main class="tile-main" v-if="showMain">
+          <article>
+            <v-icon small color="gray">
+              mdi-clipboard-text-outline
+            </v-icon>
+            <span class="tile-text">{{ desc }}</span>
+          </article>
+          <article>
+            <v-icon small color="gray">
+              mdi-map-marker-radius
+            </v-icon>
+            <span class="tile-text">{{ territory }}</span>
+          </article>
+          <article>
+            <v-icon small color="gray">
+              mdi-bookmark-outline
+            </v-icon>
+            <span class="tile-text">{{ type }}</span>
+          </article>
+          <article>
+            <v-icon small color="gray">
+              mdi-clock-time-four-outline
+            </v-icon>
+            <span class="tile-text">{{ due }}</span>
+          </article>
+          Updated at {{ ua }}
+        </main>
+      </article>
+      <article class="tile-bottom" @click.stop="showMain = !showMain">
+        <v-icon medium color="gray" v-if="!showMain">
+          mdi-chevron-down
+        </v-icon>
+        <v-icon medium color="gray" v-if="showMain">
+          mdi-chevron-up
+        </v-icon>
+      </article>
     </article>
-    <article class="tile-bottom" @click.stop="showMain = !showMain">
-      <v-icon medium color="gray" v-if="!showMain">
-        mdi-chevron-down
-      </v-icon>
-       <v-icon medium color="gray" v-if="showMain">
-        mdi-chevron-up
-      </v-icon>
-    </article>
-  </article>
+  </drag>
 </template>
 
 <script>
@@ -59,14 +61,14 @@ export default {
     };
   },
   methods: {
-      handleClick() {
-          this.$emit('selected', this.ticket)
-      }
+    handleClick() {
+      this.$emit("selected", this.ticket);
+    }
   },
   computed: {
-      ua() {
-        return this.ticket?.updatedAt || "updated at time"
-      },
+    ua() {
+      return this.ticket?.updatedAt || "updated at time";
+    },
     due() {
       return this.ticket?.dueDate || "due date";
     },
@@ -178,7 +180,7 @@ export default {
   font-weight: bold;
 }
 .tile-text {
-    margin-left: 5px;
+  margin-left: 5px;
 }
 .tile-header {
   height: 50px;

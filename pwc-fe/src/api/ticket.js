@@ -9,6 +9,6 @@ export default {
     return await get("/tickets", getConfig());
   },
   async updateStatus(id, status) {
-    return await patch(`/ticket/${id}`, {status}, getConfig());
+    return await patch(`/ticket/${id}`, {status, updatedAt: new Date().toISOString()}, getConfig());
   },
 };

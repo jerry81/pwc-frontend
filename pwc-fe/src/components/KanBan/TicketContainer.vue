@@ -1,17 +1,18 @@
 <template>
   <section class="ticket-container-root">
-    <ticket-sub-container
-      v-for="(v, i) in subcontainers"
-      :key="i"
-      :status="v.status"
-      :items="v.items"
-      @selected="handleSelected"
-    />
+      <ticket-sub-container
+        v-for="(v, i) in subcontainers"
+        :key="i"
+        :status="v.status"
+        :items="v.items"
+        @selected="handleSelected"
+      />
   </section>
 </template>
 
 <script>
 import TicketSubContainer from "./TicketSubContainer";
+
 export default {
   name: "TicketContainer",
   props: {},
@@ -66,8 +67,8 @@ export default {
       }
     },
     handleSelected(v) {
-      console.log('bubbed up again')
-      this.$emit('selected', v)
+      console.log("bubbed up again");
+      this.$emit("selected", v);
     }
   },
   async mounted() {
