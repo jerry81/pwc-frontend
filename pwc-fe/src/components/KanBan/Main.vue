@@ -39,8 +39,19 @@
       />
     </v-dialog>
     <main v-if="showDetails" class="kanban-details">
-      <ticket-details :creating="false" @close="showDetails = false" :ticket="selected"/>
+      <ticket-details
+        :creating="false"
+        @close="showDetails = false"
+        :ticket="selected"
+      />
     </main>
+    <v-progress-circular
+      class="progress"
+      v-if="showProgress"
+      :size="50"
+      color="primary"
+      indeterminate
+    ></v-progress-circular>
   </section>
 </template>
 
@@ -59,7 +70,8 @@ export default {
       showCreate: false,
       curCount: 0,
       showDetails: false,
-      selected: {}
+      selected: {},
+      showProgress: false,
     };
   },
   methods: {
@@ -70,7 +82,9 @@ export default {
     async handleSave(obj) {
       this.showCreate = false;
       try {
+          this.showProgress=true
         const { data } = await this.$api.ticket.create(obj);
+        this.showProgress=false
         this.$refs.tcontainer.refresh();
         console.log("data is ", data);
       } catch (e) {
@@ -78,8 +92,8 @@ export default {
       }
     },
     handleSelected(v) {
-        this.selected = v
-        this.showDetails=true
+      this.selected = v;
+      this.showDetails = true;
     }
   }
 };
@@ -121,12 +135,18 @@ export default {
   width: 100%;
 }
 .kanban-details {
-    width: 50%;
-    height: calc(100% - 130px);
-    background: white;
-    position: absolute;
-    top: 85px;
-    right: 15px;
-    border: 1px solid #ddd;
+  width: 50%;
+  height: calc(100% - 130px);
+  background: white;
+  position: absolute;
+  top: 85px;
+  right: 15px;
+  border: 1px solid #ddd;
+}
+
+.progress {
+  position: absolute;
+  left: 50%;
+  top: 50%;
 }
 </style>

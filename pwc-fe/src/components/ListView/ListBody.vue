@@ -60,6 +60,13 @@
       <span style="width: 200px;">{{ v.dueDate }}</span>
       <span style="width: 200px;">{{ v.updatedAt }}</span>
     </article>
+    <v-progress-circular
+      class="progress"
+      v-if="showProgress"
+      :size="50"
+      color="primary"
+      indeterminate
+    ></v-progress-circular>
   </section>
 </template>
 
@@ -72,7 +79,8 @@ export default {
     return {
       showDetails: false,
       curCount: 0,
-      tickets: []
+      tickets: [],
+      showProgress: false
     };
   },
   computed: {
@@ -92,7 +100,7 @@ export default {
       return this.tickets.filter(this.applyFilters).sort((a, b) => {
         const dateA = new Date(a.updatedAt).getTime();
         const dateB = new Date(b.updatedAt).getTime();
-        
+
         if (this.sort == "desc") {
           return dateA > dateB ? -1 : 1;
         } else {
@@ -113,7 +121,9 @@ export default {
     },
     async refresh() {
       try {
+        this.showProgress=true
         const { data } = await this.$api.ticket.list();
+        this.showProgress=false
         this.tickets = data;
         this.$emit("refreshed", this.tickets.length);
       } catch (e) {
@@ -150,5 +160,11 @@ export default {
   align-items: center;
   border-bottom: #ddd 1px solid;
   font-size: 12px;
+}
+
+.progress {
+  position: absolute;
+  left: 50%;
+  top: 50%;
 }
 </style>

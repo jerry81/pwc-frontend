@@ -46,10 +46,20 @@
         </article>
         <article style="width: 200px;">
           Last Modified
-            <v-icon small color="grey" @click="curSort='asc'" v-if="curSort==='desc'">
+          <v-icon
+            small
+            color="grey"
+            @click="curSort = 'asc'"
+            v-if="curSort === 'desc'"
+          >
             mdi-chevron-down
           </v-icon>
-          <v-icon small color="grey" @click="curSort='desc'" v-if="curSort==='asc'">
+          <v-icon
+            small
+            color="grey"
+            @click="curSort = 'desc'"
+            v-if="curSort === 'asc'"
+          >
             mdi-chevron-up
           </v-icon>
         </article>
@@ -131,6 +141,13 @@
         :ticket="selected"
       />
     </main>
+    <v-progress-circular
+      class="progress"
+      v-if="showProgress"
+      :size="50"
+      color="primary"
+      indeterminate
+    ></v-progress-circular>
   </section>
 </template>
 <script>
@@ -159,7 +176,8 @@ export default {
       currentFilter: { ...DEFAULT_FILTERS },
       showFilters: false,
       changingFilter: "",
-      curSort: 'desc'
+      curSort: "desc",
+      showProgress: false
     };
   },
   methods: {
@@ -170,7 +188,9 @@ export default {
     async handleSave(obj) {
       this.showCreate = false;
       try {
+        this.showProgress=true
         const { data } = await this.$api.ticket.create(obj);
+        this.showProgress=false
         this.$refs.lcontainer.refresh();
         console.log("data is ", data);
       } catch (e) {
@@ -306,5 +326,11 @@ export default {
   border: grey 1px solid;
   width: 100px;
   margin: 10px;
+}
+
+.progress {
+  position: absolute;
+  left: 50%;
+  top: 50%;
 }
 </style>
