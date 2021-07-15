@@ -18,14 +18,21 @@
           </article>
         </article>
       </header>
+      <main class="kanban-main">
+        <ticket-container/>
+      </main>
     </section>
   </section>
 </template>
 
 <script>
+import TicketContainer from './TicketContainer'
 export default {
   name: "KanBan",
   props: {},
+  components: {
+    TicketContainer
+  },
   data() {
     return {};
   },
@@ -63,5 +70,9 @@ export default {
 }
 .kanban-header-lv {
     margin-right: 15px;
+}
+.kanban-main {
+    height: calc(100% - 70px);
+    width: 100%;
 }
 </style>
