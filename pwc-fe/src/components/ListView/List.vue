@@ -52,7 +52,11 @@
         </article>
       </header>
       <section class="table-body">
-        <list-body ref="lcontainer" @refreshed="handleRefresh"/>
+        <list-body
+          ref="lcontainer"
+          @refreshed="handleRefresh"
+          @selected="handleSelected"
+        />
       </section>
     </main>
     <v-dialog v-model="showCreate" max-width="600px">
@@ -63,11 +67,18 @@
         @save="handleSave"
       />
     </v-dialog>
+    <main v-if="showDetails" class="list-details">
+      <ticket-details
+        :creating="false"
+        @close="showDetails = false"
+        :ticket="selected"
+      />
+    </main>
   </section>
 </template>
 <script>
 import ListBody from "./ListBody";
-import TicketDetails from '../TicketDetails'
+import TicketDetails from "../TicketDetails";
 
 export default {
   name: "List",
@@ -78,6 +89,7 @@ export default {
       showDetails: false,
       curCount: 0,
       showCreate: false,
+      selected: {}
     };
   },
   methods: {
@@ -94,6 +106,10 @@ export default {
       } catch (e) {
         console.error("error while posting ticket", e);
       }
+    },
+    handleSelected(v) {
+      this.selected = v;
+      this.showDetails = true;
     }
   }
 };
@@ -151,5 +167,14 @@ export default {
   height: calc(100% - 100px);
   margin: 0 15px;
   width: calc(100% - 30px);
+}
+.list-details {
+  width: 50%;
+  height: calc(100% - 130px);
+  background: white;
+  position: absolute;
+  top: 85px;
+  right: 15px;
+  border: 1px #ddd solid;
 }
 </style>

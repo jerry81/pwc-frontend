@@ -127,5 +127,6 @@ export default {
     position: absolute;
     top: 85px;
     right: 15px;
+    border: 1px solid #ddd;
 }
 </style>
