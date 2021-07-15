@@ -22,23 +22,23 @@ export default {
   computed: {
     subcontainers() {
       return [
-          {
-            status: "SUBMITTED",
-            items: this.submitted || []
-          },
-          {
-            status: "ASSIGNED",
-            items: this.assigned || []
-          },
-          {
-            status: "PENDING",
-            items: this.pending || []
-          },
-          {
-            status: "COMPLETED",
-            items: this.completed || []
-          }
-      ]
+        {
+          status: "SUBMITTED",
+          items: this.submitted || []
+        },
+        {
+          status: "ASSIGNED",
+          items: this.assigned || []
+        },
+        {
+          status: "PENDING",
+          items: this.pending || []
+        },
+        {
+          status: "COMPLETED",
+          items: this.completed || []
+        }
+      ];
     },
     submitted() {
       return this.tickets.filter(x => x.status === "SUBMITTED");
@@ -53,17 +53,20 @@ export default {
       return this.tickets.filter(x => x.status === "COMPLETED");
     }
   },
-  methods: {},
-  async mounted() {
-    try {
-      const { data } = await this.$api.ticket.list();
-      console.log()
-      console.log("data is ", data);
-      this.tickets = data;
-      this.$emit('refreshed', this.tickets.length)
-    } catch (e) {
-      console.error("error while posting ticket", e);
+  methods: {
+    async refresh() {
+      try {
+        const { data } = await this.$api.ticket.list();
+        console.log("data is ", data);
+        this.tickets = data;
+        this.$emit("refreshed", this.tickets.length);
+      } catch (e) {
+        console.error("error while posting ticket", e);
+      }
     }
+  },
+  async mounted() {
+    this.refresh();
   },
   components: { TicketSubContainer }
 };

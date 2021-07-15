@@ -124,7 +124,6 @@ export default {
       console.log("date is ", this.dueDate);
     },
     handleSave() {
-      console.log("tis.subject", this.subject);
       const newObj = {
         description: this.description,
         dueDate: this.dueDate,
@@ -134,9 +133,10 @@ export default {
         dm_version: this.dm_version,
         subject: this.subject,
         updatedAt: new Date().toISOString(),
-        number: this.ticketCount + 1
+        number: this.ticketCount + 1,
+        status: 'SUBMITTED'
       };
-      console.log("current state is ", newObj);
+      this.$emit('save', newObj)
     }
   },
   computed: {

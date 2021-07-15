@@ -73,7 +73,7 @@ export default {
       return this.ticket?.subject || "subject";
     },
     assignee() {
-      return this.ticket?.asignee || "Jerry";
+      return this.ticket?.assignee || "Jerry";
     },
     status() {
       return this.ticket?.status || "PENDING";
