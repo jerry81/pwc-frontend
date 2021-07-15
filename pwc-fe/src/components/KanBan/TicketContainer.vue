@@ -5,6 +5,7 @@
       :key="i"
       :status="v.status"
       :items="v.items"
+      @selected="handleSelected"
     />
   </section>
 </template>
@@ -63,6 +64,10 @@ export default {
       } catch (e) {
         console.error("error while posting ticket", e);
       }
+    },
+    handleSelected(v) {
+      console.log('bubbed up again')
+      this.$emit('selected', v)
     }
   },
   async mounted() {

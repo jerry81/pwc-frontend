@@ -1,5 +1,5 @@
 <template>
-  <article class="tile-root" :style="borderStyle">
+  <article class="tile-root" :style="borderStyle" @click="handleClick">
     <article class="tile-top">
       <header class="tile-header">
         <article>
@@ -38,7 +38,7 @@
         Updated at {{ua}}
       </main>
     </article>
-    <article class="tile-bottom" @click="showMain = !showMain">
+    <article class="tile-bottom" @click.stop="showMain = !showMain">
       <v-icon medium color="gray" v-if="!showMain">
         mdi-chevron-down
       </v-icon>
@@ -58,7 +58,11 @@ export default {
       showMain: false
     };
   },
-  methods: {},
+  methods: {
+      handleClick() {
+          this.$emit('selected', this.ticket)
+      }
+  },
   computed: {
       ua() {
         return this.ticket?.updatedAt || "updated at time"

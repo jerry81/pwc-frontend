@@ -6,7 +6,7 @@
       </h3>
       <div style="margin-right: 15px; font-weight: bold" @click="close">X</div>
     </header>
-    <main class="details-main">
+    <main class="details-main" v-if="creating">
       <h4>Basic Information</h4>
       <article>
         <div class="details-label">
@@ -86,7 +86,52 @@
         <input v-model="description" class="details-input" />
       </article>
     </main>
-    <footer class="details-foot">
+    <main class="details-main" v-if="!creating">
+      <h4>Basic Information</h4>
+      <article style="margin-bottom: 20px;">
+        <div class="details-label">
+          Subject:
+        </div>
+        <span>{{ticket.subject}}</span>
+      </article>
+      <article>
+        <div class="details-label">
+          Due Date:
+        </div>
+        <span>{{ticket.dueDate}}</span>
+      </article>
+      <article>
+        <div class="details-label">
+          Type:
+        </div>
+        <span>{{ticket.type}}</span>
+      </article>
+      <article>
+        <div class="details-label">
+          Territory:
+        </div>
+        <span>{{ticket.territory}}</span>
+      </article>
+      <article>
+        <div class="details-label">
+          DM Version:
+        </div>
+        <span >{{ticket.dm_version}}</span>
+      </article>
+      <article>
+        <div class="details-label">
+          Assignee:
+        </div>
+        <span>{{ticket.assignee}}</span>
+      </article>
+      <article>
+        <div class="details-label">
+          Description:
+        </div>
+        <span>{{ticket.description}}</span>
+      </article>
+    </main>
+    <footer class="details-foot" v-if="creating">
       <button
         class="details-save"
         :style="`background: ${theme}`"
@@ -120,7 +165,7 @@ export default {
     },
     handleDate() {
       this.menu = false;
-      this.$refs.menu.save(this.dueDate)
+      this.$refs.menu.save(this.dueDate);
       console.log("date is ", this.dueDate);
     },
     handleSave() {
@@ -134,14 +179,14 @@ export default {
         subject: this.subject,
         updatedAt: new Date().toISOString(),
         number: this.ticketCount + 1,
-        status: 'SUBMITTED'
+        status: "SUBMITTED"
       };
-      this.$emit('save', newObj)
+      this.$emit("save", newObj);
     }
   },
   computed: {
     title() {
-      return this.creating ? "New Request" : "";
+      return this.creating ? "New Request" : "Ticket Information";
     },
     status() {
       return this.ticket?.status || "SUBMITTED";

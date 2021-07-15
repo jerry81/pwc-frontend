@@ -23,7 +23,11 @@
         </article>
       </header>
       <main class="kanban-main">
-        <ticket-container ref="tcontainer" @refreshed="handleRefresh" />
+        <ticket-container
+          ref="tcontainer"
+          @refreshed="handleRefresh"
+          @selected="handleSelected"
+        />
       </main>
     </section>
     <v-dialog v-model="showCreate" max-width="600px">
@@ -34,6 +38,9 @@
         @save="handleSave"
       />
     </v-dialog>
+    <main v-if="showDetails" class="kanban-details">
+      <ticket-details :creating="false" @close="showDetails = false" :ticket="selected"/>
+    </main>
   </section>
 </template>
 
@@ -50,7 +57,9 @@ export default {
   data() {
     return {
       showCreate: false,
-      curCount: 0
+      curCount: 0,
+      showDetails: false,
+      selected: {}
     };
   },
   methods: {
@@ -62,11 +71,15 @@ export default {
       this.showCreate = false;
       try {
         const { data } = await this.$api.ticket.create(obj);
-        this.$refs.tcontainer.refresh()
+        this.$refs.tcontainer.refresh();
         console.log("data is ", data);
       } catch (e) {
         console.error("error while posting ticket", e);
       }
+    },
+    handleSelected(v) {
+        this.selected = v
+        this.showDetails=true
     }
   }
 };
@@ -106,5 +119,13 @@ export default {
 .kanban-main {
   height: calc(100% - 70px);
   width: 100%;
+}
+.kanban-details {
+    width: 50%;
+    height: calc(100% - 130px);
+    background: white;
+    position: absolute;
+    top: 85px;
+    right: 15px;
 }
 </style>

@@ -6,7 +6,7 @@
       </article>
     </header>
     <main class="tc-cao">
-      <Tile v-for="(v,i) in items" :key="i" :ticket='v'/>
+      <Tile v-for="(v,i) in items" :key="i" :ticket='v' @selected="handleSelected"/>
     </main>
   </article>
 </template>
@@ -23,7 +23,11 @@ export default {
     return {};
   },
   components: {Tile},
-  methods: {},
+  methods: {
+    handleSelected(v) {
+      this.$emit('selected', v)
+    }
+  },
   computed: {
     borderStyle() {
       switch (this.status) {
