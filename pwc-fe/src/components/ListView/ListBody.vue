@@ -66,30 +66,40 @@
 <script>
 export default {
   name: "listbody",
-  props: {},
+  props: ['filters'],
   components: {},
   data() {
     return {
       showDetails: false,
       curCount: 0,
-      tickets: []
+      tickets: [],
     };
   },
   computed: {
     submitted() {
-      return this.tickets.filter(x => x.status === "SUBMITTED");
+      return this.filteredTickets.filter(x => x.status === "SUBMITTED");
     },
     assigned() {
-      return this.tickets.filter(x => x.status === "ASSIGNED");
+      return this.filteredTickets.filter(x => x.status === "ASSIGNED");
     },
     pending() {
-      return this.tickets.filter(x => x.status === "PENDING");
+      return this.filteredTickets.filter(x => x.status === "PENDING");
     },
     completed() {
-      return this.tickets.filter(x => x.status === "COMPLETED");
-    }
+      return this.filteredTickets.filter(x => x.status === "COMPLETED");
+    },
+    filteredTickets() {
+      return this.tickets.filter(this.applyFilters)
+    },
   },
   methods: {
+    applyFilters(ticket) {
+      const assigneePass = this.filters?.assignee === '*' || this.filters?.assignee?.length === 0
+      const assigneeFail = !ticket.assignee.includes(this.filters.assignee)
+      const tagPass = this.filters?.tag === '*' || this.filters?.tag?.length === 0
+      const tagFail = ticket.type !== this.filters.tag
+      return (!assigneeFail || assigneePass) && (!tagFail || tagPass)
+    },
     async refresh() {
       try {
         const { data } = await this.$api.ticket.list();
