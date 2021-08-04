@@ -125,6 +125,7 @@ export default {
   background: #ddd;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 }
 .progress {
   position: absolute;

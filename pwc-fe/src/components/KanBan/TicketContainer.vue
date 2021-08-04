@@ -117,6 +117,7 @@ export default {
   height: calc(100% - 60px);
   width: 100%;
   background: #ddd;
+  overflow: auto;
 }
 
 .progress {
