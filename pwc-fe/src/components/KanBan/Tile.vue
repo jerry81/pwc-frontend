@@ -11,7 +11,7 @@
           </article>
           <div class="tile-number" :style="roundStyle">{{ ticketNumber }}</div>
         </header>
-        <main class="tile-main" v-if="showMain">
+        <main class="tile-main" v-if="showMain" style="max-height:400px; overflow:auto;">
           <article>
             <v-icon small color="gray">
               mdi-clipboard-text-outline
